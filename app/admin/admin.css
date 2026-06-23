@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Admin uses the same theme tokens as the public site. */
+:root {
+  --color-background: 247 245 240;
+  --color-surface: 241 238 231;
+  --color-primary: 11 59 54;
+  --color-primary-dark: 7 41 38;
+  --color-primary-light: 23 84 78;
+  --color-accent: 201 162 75;
+  --color-accent-dark: 163 128 51;
+  --color-ink: 28 36 35;
+  --color-muted: 107 114 112;
+}
+
+body {
+  background-color: rgb(var(--color-surface));
+  color: rgb(var(--color-ink));
+  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}

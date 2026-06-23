@@ -1,7 +1,7 @@
 import { cn } from '@/lib/utils';
 import type { AnchorHTMLAttributes, ButtonHTMLAttributes, ReactNode } from 'react';
 
-type Variant = 'primary' | 'accent' | 'outline' | 'ghost';
+type Variant = 'primary' | 'accent' | 'outline' | 'ghost' | 'heroOutline';
 
 const base =
   'inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-medium transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent disabled:opacity-60';
@@ -12,6 +12,10 @@ const variants: Record<Variant, string> = {
   outline:
     'border border-primary/30 text-primary hover:bg-primary hover:text-white',
   ghost: 'text-primary hover:bg-primary/5',
+  // Transparent outline for use over the hero. On hover it becomes a solid
+  // cream surface with NAVY text (never white-on-white) — always readable.
+  heroOutline:
+    'border border-white/60 bg-white/5 text-white hover:bg-background hover:text-primary hover:border-background',
 };
 
 interface CommonProps {

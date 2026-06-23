@@ -5,8 +5,10 @@
  *  1. Drop your photos into /public/images/ (e.g. hero-1.jpg, gallery-1.jpg).
  *  2. Change each `src` below to "/images/your-file.jpg".
  *  3. Update the bilingual `alt` text for accessibility.
- * The current `src` values point to tasteful Unsplash placeholders so the site
- * looks complete before real photos arrive. Replace them at launch.
+ *
+ * The current `src` values are tasteful, verified Unsplash MOSQUE photographs
+ * used as temporary placeholders until the owner provides real photos of
+ * Masjid Aisyah Lawata. Replace them at launch.
  */
 
 export type LocalizedString = { en: string; id: string };
@@ -16,50 +18,53 @@ export interface GalleryImage {
   alt: LocalizedString;
 }
 
-// 3–4 wide images for the auto-advancing hero carousel.
+const unsplash = (id: string, w = 2000) =>
+  `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=80`;
+
+// 4 wide mosque images for the auto-advancing hero carousel.
 export const heroImages: GalleryImage[] = [
   {
-    src: 'https://images.unsplash.com/photo-1564769662533-4f00a87b4056?auto=format&fit=crop&w=2000&q=80',
-    alt: { en: 'Mosque interior with arches', id: 'Interior masjid dengan lengkungan' },
+    src: unsplash('photo-1574246604907-db69e30ddb97'),
+    alt: { en: 'Worshippers in a mosque prayer hall', id: 'Jamaah di ruang shalat masjid' },
   },
   {
-    src: 'https://images.unsplash.com/photo-1591197172062-c718f82aba20?auto=format&fit=crop&w=2000&q=80',
-    alt: { en: 'Mosque dome at dusk', id: 'Kubah masjid saat senja' },
+    src: unsplash('photo-1512632578888-169bbbc64f33'),
+    alt: { en: 'Grand mosque reflected in water at dusk', id: 'Masjid agung terpantul di air saat senja' },
   },
   {
-    src: 'https://images.unsplash.com/photo-1542816417-0983c9c9ad53?auto=format&fit=crop&w=2000&q=80',
-    alt: { en: 'Worshippers gathered for prayer', id: 'Jamaah berkumpul untuk shalat' },
+    src: unsplash('photo-1519817650390-64a93db51149'),
+    alt: { en: 'Mosque with a large dome and minarets at golden hour', id: 'Masjid berkubah besar dan menara saat senja' },
   },
   {
-    src: 'https://images.unsplash.com/photo-1519817650390-64a93db51149?auto=format&fit=crop&w=2000&q=80',
-    alt: { en: 'Islamic geometric pattern', id: 'Pola geometris islami' },
+    src: unsplash('photo-1519818187420-8e49de7adeef'),
+    alt: { en: 'Illuminated mosque at sunset', id: 'Masjid bercahaya saat matahari terbenam' },
   },
 ];
 
-// Images for the secondary gallery grid.
+// 6 mosque/Islamic images for the secondary gallery grid.
 export const galleryImages: GalleryImage[] = [
   {
-    src: 'https://images.unsplash.com/photo-1584286595398-a59f21d313f5?auto=format&fit=crop&w=1200&q=80',
-    alt: { en: 'Mosque archway', id: 'Lengkungan masjid' },
+    src: unsplash('photo-1512970648279-ff3398568f77', 1200),
+    alt: { en: 'White mosque domes against a clear sky', id: 'Kubah masjid putih dengan langit cerah' },
   },
   {
-    src: 'https://images.unsplash.com/photo-1545167622-3a6ac756afa4?auto=format&fit=crop&w=1200&q=80',
-    alt: { en: 'Prayer hall carpet', id: 'Karpet ruang shalat' },
+    src: unsplash('photo-1572358899655-f63ece97bfa5', 1200),
+    alt: { en: 'Mosque courtyard with minarets', id: 'Halaman masjid dengan menara' },
   },
   {
-    src: 'https://images.unsplash.com/photo-1466442929976-97f336a657be?auto=format&fit=crop&w=1200&q=80',
-    alt: { en: 'Ornate ceiling detail', id: 'Detail langit-langit berukir' },
+    src: unsplash('photo-1590075865003-e48277faa558', 1200),
+    alt: { en: 'Mosque arches and marble floral inlay', id: 'Lengkungan masjid dan inlay marmer bermotif bunga' },
   },
   {
-    src: 'https://images.unsplash.com/photo-1597935258735-6a41c8b4d6f3?auto=format&fit=crop&w=1200&q=80',
-    alt: { en: 'Quran on a stand', id: 'Al-Qur\'an di atas rehal' },
+    src: unsplash('photo-1713239060784-e6ed820a0715', 1200),
+    alt: { en: 'View through an ornate mosque archway', id: 'Pemandangan melalui lengkungan masjid berukir' },
   },
   {
-    src: 'https://images.unsplash.com/photo-1535540878298-0c9a3a4b2c6c?auto=format&fit=crop&w=1200&q=80',
-    alt: { en: 'Minaret against sky', id: 'Menara masjid menghadap langit' },
+    src: unsplash('photo-1511091734515-e50d46c37240', 1200),
+    alt: { en: 'White mosque domes and courtyard', id: 'Kubah masjid putih dan halaman' },
   },
   {
-    src: 'https://images.unsplash.com/photo-1604062209983-0b6c0d6a1b2e?auto=format&fit=crop&w=1200&q=80',
-    alt: { en: 'Mosque courtyard', id: 'Halaman masjid' },
+    src: unsplash('photo-1542816417-0983c9c9ad53', 1200),
+    alt: { en: "Qur'an resting on a dark surface", id: "Al-Qur'an di atas permukaan gelap" },
   },
 ];

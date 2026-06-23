@@ -1,6 +1,7 @@
 import { useTranslations } from 'next-intl';
 import { Container } from '@/components/ui/Container';
 import { siteConfig } from '@/config/site';
+import { MosqueIcon } from '@/components/ui/MosqueIcon';
 import { LanguageSwitcher } from './LanguageSwitcher';
 
 const QUICK_LINKS = [
@@ -24,7 +25,7 @@ export function Footer({ locale }: { locale: 'en' | 'id' }) {
           <div>
             <div className="flex items-center gap-2.5">
               <span className="grid h-9 w-9 place-items-center rounded-full bg-white/10 text-accent">
-                <span className="font-arabic text-lg leading-none">ع</span>
+                <MosqueIcon className="h-5 w-5" />
               </span>
               <span className="font-display text-lg font-semibold text-white">
                 {siteConfig.name.short[locale]}

@@ -12,6 +12,9 @@ import { Donation } from '@/components/sections/Donation';
 import { Location } from '@/components/sections/Location';
 import { Contact } from '@/components/sections/Contact';
 
+// The Schedule section reads from the database, so render at request time.
+export const dynamic = 'force-dynamic';
+
 export default function HomePage({ params }: { params: { locale: string } }) {
   setRequestLocale(params.locale);
   const locale = params.locale as 'en' | 'id';

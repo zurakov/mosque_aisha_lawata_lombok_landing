@@ -56,11 +56,7 @@ export function Hero({ locale }: { locale: 'en' | 'id' }) {
               <ButtonLink href="#prayer-times" variant="accent">
                 {t('ctaPrayer')}
               </ButtonLink>
-              <ButtonLink
-                href="#donation"
-                variant="outline"
-                className="border-white/50 text-white hover:bg-white hover:text-primary"
-              >
+              <ButtonLink href="#donation" variant="heroOutline">
                 {t('ctaDonate')}
               </ButtonLink>
             </div>

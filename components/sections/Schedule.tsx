@@ -1,8 +1,8 @@
-import { useLocale, useTranslations } from 'next-intl';
+import { getTranslations, getLocale } from 'next-intl/server';
 import { Info } from 'lucide-react';
 import { Section } from '@/components/ui/Section';
 import { SectionHeading } from '@/components/ui/SectionHeading';
-import { weeklySchedule, isPlaceholderSchedule } from '@/config/schedule';
+import { getScheduleEntries, DAY_TO_WEEKDAY_INDEX } from '@/lib/schedule';
 import { cn } from '@/lib/utils';
 
 const DAY_NAMES: Record<'en' | 'id', string[]> = {
@@ -16,21 +16,23 @@ const AUDIENCE_STYLES: Record<string, string> = {
   umum: 'bg-emerald-100 text-emerald-800',
 };
 
-export function Schedule() {
-  const t = useTranslations('schedule');
-  const locale = useLocale() as 'en' | 'id';
+// Read fresh from the DB on each request; admin edits revalidate the page too.
+export const dynamic = 'force-dynamic';
 
-  // Sort Monday-first for a natural reading order.
-  const ordered = [...weeklySchedule].sort((a, b) => {
-    const norm = (d: number) => (d === 0 ? 7 : d);
-    return norm(a.day) - norm(b.day);
-  });
+export async function Schedule() {
+  const t = await getTranslations('schedule');
+  const locale = (await getLocale()) as 'en' | 'id';
+
+  // Entries come from the database (managed via /admin), already sorted
+  // Monday→Sunday then by manual order.
+  const entries = await getScheduleEntries();
+  const dayName = (day: string) => DAY_NAMES[locale][DAY_TO_WEEKDAY_INDEX[day as keyof typeof DAY_TO_WEEKDAY_INDEX]];
 
   return (
     <Section id="schedule">
       <SectionHeading title={t('title')} subtitle={t('subtitle')} />
 
-      {isPlaceholderSchedule && (
+      {entries.length === 0 && (
         <div className="mx-auto mb-6 flex max-w-3xl items-start gap-2 rounded-xl border border-accent/30 bg-accent/10 px-4 py-3 text-sm text-accent-dark">
           <Info className="mt-0.5 h-4 w-4 shrink-0" />
           <p>{t('placeholderNotice')}</p>
@@ -50,9 +52,9 @@ export function Schedule() {
             </tr>
           </thead>
           <tbody className="divide-y divide-primary/10 bg-white">
-            {ordered.map((e, i) => (
-              <tr key={i} className="hover:bg-surface">
-                <td className="px-5 py-3 font-medium text-primary">{DAY_NAMES[locale][e.day]}</td>
+            {entries.map((e) => (
+              <tr key={e.id} className="hover:bg-surface">
+                <td className="px-5 py-3 font-medium text-primary">{dayName(e.day)}</td>
                 <td className="px-5 py-3 text-ink/80">{e.time}</td>
                 <td className="px-5 py-3 text-ink/80">{e.topic}</td>
                 <td className="px-5 py-3 text-ink/70">{e.ustadz}</td>
@@ -74,10 +76,10 @@ export function Schedule() {
 
       {/* Mobile cards */}
       <div className="space-y-3 md:hidden">
-        {ordered.map((e, i) => (
-          <div key={i} className="rounded-2xl border border-primary/10 bg-white p-4 shadow-card">
+        {entries.map((e) => (
+          <div key={e.id} className="rounded-2xl border border-primary/10 bg-white p-4 shadow-card">
             <div className="flex items-center justify-between">
-              <span className="font-semibold text-primary">{DAY_NAMES[locale][e.day]}</span>
+              <span className="font-semibold text-primary">{dayName(e.day)}</span>
               <span
                 className={cn(
                   'rounded-full px-2.5 py-1 text-xs font-medium',

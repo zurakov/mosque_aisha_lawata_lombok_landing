@@ -10,14 +10,51 @@ times** for Mataram from the Aladhan API.
 ## Quick start
 
 ```bash
-npm install
-npm run dev      # http://localhost:3000  → redirects to /id
-npm run build    # production build
-npm start        # serve the production build
+npm install                 # also runs `prisma generate`
+cp .env.example .env        # then edit ADMIN_PASSWORD + SESSION_SECRET
+npm run db:migrate          # create the SQLite db + tables
+npm run db:seed             # seed the starter kajian schedule
+npm run dev                 # http://localhost:3000  → redirects to /id
 ```
+
+For production: `npm run build` then `npm start`. On first deploy run
+`npm run db:setup` (applies migrations + seeds).
 
 Default language is **Indonesian** (`/id`). English lives at `/en`. The "/" root
 redirects to the default locale.
+
+### Environment variables (`.env`)
+
+| Variable          | Purpose                                                        |
+|-------------------|---------------------------------------------------------------|
+| `DATABASE_URL`    | SQLite file path (default `file:./prisma/dev.db`).            |
+| `ADMIN_PASSWORD`  | Password for the `/admin` dashboard login.                    |
+| `SESSION_SECRET`  | Secret used to sign the admin session cookie (≥16 chars).    |
+
+Generate a secret: `node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"`
+
+---
+
+## Admin dashboard (`/admin`)
+
+The **Weekly Study Schedule** is stored in a database and edited through a
+protected dashboard — it is no longer hardcoded.
+
+- Visit **`/admin`** → you'll be redirected to `/admin/login`.
+- Log in with `ADMIN_PASSWORD`. A signed, httpOnly session cookie is set
+  (8-hour expiry). `/admin` and `/api/admin/*` are gated by middleware.
+- The dashboard lets you **create, edit, delete, and reorder** schedule entries.
+  Each entry: day, time, topic/book, teacher (ustadz), audience
+  (men/women/general). Edits revalidate the public site immediately.
+
+**Persistence:** Prisma + SQLite (`prisma/schema.prisma`, model `ScheduleEntry`).
+To move to Postgres later, change `provider` to `postgresql` in the schema, set
+`DATABASE_URL` to your Postgres URL, and run `npm run db:migrate` — the models
+are unchanged.
+
+**Extensible:** the admin is structured so donation details and gallery can be
+added later as their own editable modules (the sidebar already lists them as
+"Soon") without touching the public site or restructuring auth.
 
 ---
 
@@ -42,15 +79,11 @@ the mosque ever moves, just update the coordinates in `config/site.ts`; the
 prayer pipeline reads them automatically. The method/school constants live at the
 top of `lib/prayer-times.ts`.
 
-### 3. Weekly study schedule — `config/schedule.ts`
-Edit the `weeklySchedule` array. Each entry:
-```ts
-{ day: 1, time: "Ba'da Maghrib", topic: "...", ustadz: "...", audience: "umum" }
-```
-- `day`: 0 = Sunday … 6 = Saturday (the table sorts and localizes day names).
-- `audience`: `'ikhwan'` (men) | `'akhwat'` (women) | `'umum'` (general).
-- The seeded rows are **placeholders**. Once confirmed, set
-  `isPlaceholderSchedule = false` to hide the "to be confirmed" notice.
+### 3. Weekly study schedule — **the admin dashboard** (`/admin`)
+The schedule is now edited in the browser via the protected admin dashboard,
+not by editing files. See the [Admin dashboard](#admin-dashboard-admin) section
+above. The starter rows are seeded from `prisma/seed.ts`; `config/schedule.ts`
+is retained only for type reference and no longer drives the site.
 
 ### 4. Donation details — `config/donation.ts`
 - `bankName`, `accountNumber`, `accountHolder` — shown with copy-to-clipboard
@@ -110,24 +143,36 @@ The Jumu'ah note text is editable in `messages/*.json` (`prayer.jumuahNote`).
 ```
 app/[locale]/        layout (html/fonts/metadata/JSON-LD), page, globals.css
 app/api/prayer-times Aladhan proxy + cache
+app/api/admin/       login, logout, schedule (CRUD, session-protected)
+app/admin/           login page + dashboard (schedule CRUD UI)
 components/layout/   Navbar, Footer, LanguageSwitcher
 components/sections/ Hero, PrayerTimes, About, Activities, Schedule,
                      Facilities, Gallery, Donation, Location, Contact
 components/ui/       Button, Card, Container, Section, SectionHeading,
-                     Carousel, CopyButton
-lib/                 prayer-times.ts, utils.ts
-config/              site, schedule, donation, gallery  ← owner-editable
+                     Carousel, CopyButton, MosqueIcon
+lib/                 prayer-times.ts, schedule.ts, prisma.ts, auth.ts, utils.ts
+prisma/              schema.prisma, seed.ts, migrations/
+config/              site, donation, gallery            ← owner-editable
 messages/            en.json, id.json                   ← all strings
+middleware.ts        locale routing + admin auth gate
 ```
 
 ---
 
 ## Deployment
 
+Set these env vars in your host: `DATABASE_URL`, `ADMIN_PASSWORD`,
+`SESSION_SECRET`. The prayer-times API itself is keyless.
+
+> **Note on SQLite + serverless:** SQLite needs a persistent writable disk, so
+> on **Vercel/Netlify** (ephemeral filesystem) switch the datasource to Postgres
+> (change `provider` in `prisma/schema.prisma` and set `DATABASE_URL`). For
+> self-hosted/Docker/Coolify with a mounted volume, SQLite works fine.
+
 ### Vercel / Netlify
-Push to a Git repo and import. No environment variables are required — the
-Aladhan API is keyless. Build command `npm run build`, output is a standard
-Next.js app.
+Push to a Git repo and import. Use a hosted Postgres for `DATABASE_URL` (see
+note above), set `ADMIN_PASSWORD` and `SESSION_SECRET`, and run
+`prisma migrate deploy` as part of the build. Build command `npm run build`.
 
 ### Self-hosted (Docker / Coolify)
 A minimal Dockerfile:
@@ -150,13 +195,17 @@ ENV NODE_ENV=production
 COPY --from=build /app/.next ./.next
 COPY --from=build /app/public ./public
 COPY --from=build /app/node_modules ./node_modules
+COPY --from=build /app/prisma ./prisma
 COPY --from=build /app/package.json ./package.json
 EXPOSE 3000
-CMD ["npm", "start"]
+# Apply migrations + seed on boot, then start. (Persist /app/prisma on a volume.)
+CMD ["sh", "-c", "npx prisma migrate deploy && npx tsx prisma/seed.ts; npm start"]
 ```
 
-On **Coolify**, point it at the repo, choose the Dockerfile build pack (or the
-Nixpacks Next.js preset), expose port 3000, and deploy. No env vars needed.
+On **Coolify**: point it at the repo, choose the Dockerfile build pack, expose
+port 3000, set `ADMIN_PASSWORD` and `SESSION_SECRET` env vars, and mount a
+**persistent volume at `/app/prisma`** so the SQLite database survives restarts
+(`DATABASE_URL=file:./prisma/dev.db`). Then deploy.
 
 ---
 

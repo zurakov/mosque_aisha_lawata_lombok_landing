@@ -119,14 +119,16 @@
     "title": "Facilities",
     "subtitle": "Clean, cool, and comfortable for worship.",
     "items": {
-      "ac": "Air-conditioned (7 AC units + 12 fans)",
-      "women": "Women's prayer area (~300 m²)",
-      "wudhu": "Ample wudhu facilities & toilets",
-      "quran": "~1,154 Qur'an copies & 20 mukenah sets",
-      "parking": "Car parking & on-site security",
-      "sound": "Sound system & oud-fragranced interior",
-      "classrooms": "3 classrooms + teacher room",
-      "carpet": "Thick carpeting throughout"
+      "ac": "Air conditioning (7 units) + 12 fans for a cool, comfortable interior",
+      "sound": "Spacious sound system (10 speakers)",
+      "floors": "Two floors — men's hall (ground, ~600 m²) & women's hall (upper, ~300 m²), separate access",
+      "quran": "1,150+ copies of the Qur'an",
+      "mukenah": "20 sets of mukenah for women",
+      "wudhu": "Ample wudhu areas (men ~15 taps, women ~6 taps) & many toilets",
+      "water": "4 water tanks",
+      "classrooms": "3 classrooms + teacher room for education programs",
+      "parking": "Car parking in front + on-site security",
+      "carpet": "Thick carpeting and fragranced (oud) interior"
     }
   },
   "gallery": {
