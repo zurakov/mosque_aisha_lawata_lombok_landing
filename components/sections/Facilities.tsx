@@ -9,12 +9,11 @@ import {
   Shirt,
   Speaker,
   Users,
-  Wind,
 } from 'lucide-react';
 import { Section } from '@/components/ui/Section';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 
-// Each entry maps to the documented real facilities — no fabricated items.
+// Each entry maps to a documented facility — neutral icons, no numbers.
 const ITEMS = [
   { key: 'ac', icon: AirVent },
   { key: 'sound', icon: Speaker },
@@ -22,7 +21,6 @@ const ITEMS = [
   { key: 'quran', icon: BookMarked },
   { key: 'mukenah', icon: Shirt },
   { key: 'wudhu', icon: Droplets },
-  { key: 'water', icon: Wind },
   { key: 'classrooms', icon: GraduationCap },
   { key: 'parking', icon: Car },
   { key: 'carpet', icon: Layers },

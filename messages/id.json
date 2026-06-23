@@ -119,16 +119,15 @@
     "title": "Fasilitas",
     "subtitle": "Bersih, sejuk, dan nyaman untuk beribadah.",
     "items": {
-      "ac": "AC (7 unit) + 12 kipas — interior sejuk dan nyaman",
-      "sound": "Sound system memadai (10 speaker)",
-      "floors": "Dua lantai — ruang ikhwan (bawah, ~600 m²) & ruang akhwat (atas, ~300 m²), akses terpisah",
-      "quran": "1.150+ mushaf Al-Qur'an",
-      "mukenah": "20 set mukenah untuk akhwat",
-      "wudhu": "Tempat wudhu memadai (ikhwan ~15 kran, akhwat ~6 kran) & banyak toilet",
-      "water": "4 tandon air",
-      "classrooms": "3 ruang kelas + ruang guru untuk program pendidikan",
-      "parking": "Parkir mobil di depan + keamanan di lokasi",
-      "carpet": "Karpet tebal dan interior beraroma oud"
+      "ac": "AC untuk interior yang sejuk dan nyaman",
+      "sound": "Sound system yang memadai",
+      "floors": "Dua lantai — ruang ikhwan (bawah), ruang akhwat (atas)",
+      "quran": "Mushaf Al-Qur'an tersedia",
+      "mukenah": "Mukenah tersedia untuk akhwat",
+      "wudhu": "Tempat wudhu & toilet",
+      "classrooms": "Ruang kelas untuk program pendidikan",
+      "parking": "Parkir mobil & keamanan di lokasi",
+      "carpet": "Interior berkarpet nyaman dan beraroma"
     }
   },
   "gallery": {

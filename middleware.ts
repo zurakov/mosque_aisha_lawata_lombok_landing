@@ -1,44 +1,39 @@
 import { NextRequest, NextResponse } from 'next/server';
 import createMiddleware from 'next-intl/middleware';
-import { locales, defaultLocale } from './i18n';
-import { SESSION_COOKIE, verifySessionToken } from './lib/auth';
+import { routing } from './i18n/routing';
+import { updateSession } from './lib/supabase/middleware';
+import { isSupabaseConfigured } from './lib/supabase/config';
 
-const intlMiddleware = createMiddleware({
-  locales,
-  defaultLocale,
-  localePrefix: 'always',
-});
+const intlMiddleware = createMiddleware(routing);
 
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
-  // ── Admin area: gate /admin and /api/admin/* behind a valid session ──
   const isAdminPage = pathname === '/admin' || pathname.startsWith('/admin/');
   const isAdminApi = pathname.startsWith('/api/admin/');
-  // The login endpoint and the login page itself must stay public.
-  const isLoginApi = pathname === '/api/admin/login';
   const isLoginPage = pathname === '/admin/login';
 
-  if (isAdminApi && !isLoginApi) {
-    const ok = await verifySessionToken(req.cookies.get(SESSION_COOKIE)?.value);
-    if (!ok) {
-      return NextResponse.json({ error: 'unauthorized' }, { status: 401 });
-    }
-    return NextResponse.next();
-  }
+  // ── Admin area: refresh Supabase session and gate on a logged-in user ──
+  if (isAdminPage || isAdminApi) {
+    // Always refresh the session cookies first.
+    const { response, user } = await updateSession(req);
 
-  if (isAdminPage && !isLoginPage) {
-    const ok = await verifySessionToken(req.cookies.get(SESSION_COOKIE)?.value);
-    if (!ok) {
-      const url = req.nextUrl.clone();
-      url.pathname = '/admin/login';
-      return NextResponse.redirect(url);
-    }
-    return NextResponse.next();
-  }
+    // When Supabase isn't configured yet, let the pages render their own
+    // "setup required" notice instead of redirect-looping.
+    if (!isSupabaseConfigured) return response;
 
-  // Login page/endpoint and other admin-api are handled above; let them pass.
-  if (isAdminPage || isAdminApi) return NextResponse.next();
+    if (!user) {
+      if (isAdminApi) {
+        return NextResponse.json({ error: 'unauthorized' }, { status: 401 });
+      }
+      if (!isLoginPage) {
+        const url = req.nextUrl.clone();
+        url.pathname = '/admin/login';
+        return NextResponse.redirect(url);
+      }
+    }
+    return response;
+  }
 
   // Non-admin API routes (e.g. /api/prayer-times) bypass locale routing.
   if (pathname.startsWith('/api/')) return NextResponse.next();
@@ -48,6 +43,5 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  // Run on app routes + admin, but skip Next internals and static files.
   matcher: ['/((?!_next|_vercel|.*\\..*).*)'],
 };

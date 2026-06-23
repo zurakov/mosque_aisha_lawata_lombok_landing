@@ -1,15 +1,19 @@
 'use client';
 
-import { usePathname, useRouter } from 'next/navigation';
+import { useEffect, useRef } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
+import { usePathname, useRouter } from '@/i18n/navigation';
 import { locales } from '@/i18n';
 import { cn } from '@/lib/utils';
 
 /**
- * Toggles between locales while keeping the user exactly where they are.
- * next-intl uses locale-prefixed routes (/en, /id); we swap only the prefix,
- * preserve the current #hash, navigate with scroll:false (no reset to top),
- * then re-scroll the same section into view after the locale change.
+ * Locale toggle that keeps the user exactly where they are.
+ *
+ * Uses next-intl's locale-aware navigation: `usePathname()` returns the path
+ * WITHOUT the locale prefix, and `router.replace(path + hash, { locale })`
+ * swaps only the locale segment. `scroll: false` stops the default scroll-to-top.
+ * After the locale change re-renders the (now translated) page, an effect
+ * re-scrolls the element matching the hash back into view.
  */
 export function LanguageSwitcher({
   className,
@@ -23,31 +27,29 @@ export function LanguageSwitcher({
   const router = useRouter();
   const t = useTranslations('language');
 
-  const switchTo = (target: string) => {
-    if (target === locale) return;
+  // Remember the hash we need to restore after the locale swap re-renders.
+  const pendingHash = useRef<string | null>(null);
 
+  const switchTo = (next: string) => {
+    if (next === locale) return;
     const hash = typeof window !== 'undefined' ? window.location.hash : '';
-
-    // pathname is like "/en/..." — replace the leading locale segment.
-    const segments = pathname.split('/');
-    segments[1] = target;
-    const nextPath = segments.join('/') + hash;
-
-    // scroll:false prevents Next from resetting to the top of the page.
-    router.replace(nextPath, { scroll: false });
-
-    // After the route updates, bring the same section back into view (the DOM
-    // re-renders with translated content, so we re-anchor to the hash).
-    if (hash) {
-      const id = hash.slice(1);
-      requestAnimationFrame(() => {
-        // Two frames: let the re-render settle before measuring scroll target.
-        requestAnimationFrame(() => {
-          document.getElementById(id)?.scrollIntoView({ behavior: 'auto', block: 'start' });
-        });
-      });
-    }
+    pendingHash.current = hash || null;
+    router.replace(pathname + hash, { locale: next as 'en' | 'id', scroll: false });
   };
+
+  // After locale changes, re-anchor to the same section.
+  useEffect(() => {
+    if (!pendingHash.current) return;
+    const id = pendingHash.current.slice(1);
+    pendingHash.current = null;
+    // Wait for the translated DOM to settle before scrolling.
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: 'instant' as ScrollBehavior, block: 'start' });
+      });
+    });
+  }, [locale]);
 
   return (
     <div

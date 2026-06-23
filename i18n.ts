@@ -1,17 +1,17 @@
 import { getRequestConfig } from 'next-intl/server';
 import { notFound } from 'next/navigation';
+import { routing, locales, defaultLocale, type Locale } from './i18n/routing';
 
-export const locales = ['en', 'id'] as const;
-export const defaultLocale = 'id' as const;
-
-export type Locale = (typeof locales)[number];
+// Re-export so existing `@/i18n` imports keep working.
+export { locales, defaultLocale };
+export type { Locale };
 
 export default getRequestConfig(async ({ requestLocale }) => {
-  // next-intl 3.22+: resolve the locale from the incoming request.
   let locale = await requestLocale;
 
-  if (!locale || !locales.includes(locale as Locale)) {
-    notFound();
+  if (!locale || !routing.locales.includes(locale as Locale)) {
+    locale = routing.defaultLocale;
+    if (!locale) notFound();
   }
 
   return {

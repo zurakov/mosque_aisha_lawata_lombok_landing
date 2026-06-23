@@ -1,12 +1,13 @@
 /**
  * config/schedule.ts — DEPRECATED as the live data source.
  *
- * The weekly kajian schedule is now stored in the database and edited through
- * the protected admin dashboard at /admin (model: ScheduleEntry). Editing this
- * file no longer changes the public site.
+ * The weekly kajian schedule (and hero/gallery/contact/socials) now live in
+ * Supabase and are edited through the admin dashboard at /admin. The seed rows
+ * are defined in supabase/schema.sql. A bundled fallback copy used when Supabase
+ * is unconfigured lives in lib/content.ts.
  *
- * The initial/seed rows live in `prisma/seed.ts`. The types below are kept only
- * for reference; the live shape is `ScheduleEntryDTO` in `lib/schedule.ts`.
+ * The types below are kept only for reference; the live shape is in
+ * lib/supabase/types.ts.
  */
 
 export type Audience = 'ikhwan' | 'akhwat' | 'umum';

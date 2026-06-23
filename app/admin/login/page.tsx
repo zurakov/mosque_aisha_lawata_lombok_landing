@@ -3,9 +3,12 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { MosqueIcon } from '@/components/ui/MosqueIcon';
+import { createClient } from '@/lib/supabase/client';
+import { isSupabaseConfigured } from '@/lib/supabase/config';
 
 export default function AdminLoginPage() {
   const router = useRouter();
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -15,17 +18,14 @@ export default function AdminLoginPage() {
     setError('');
     setLoading(true);
     try {
-      const res = await fetch('/api/admin/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ password }),
-      });
-      if (res.ok) {
-        router.replace('/admin');
-        router.refresh();
-      } else {
-        setError('Incorrect password. Please try again.');
+      const supabase = createClient();
+      const { error } = await supabase.auth.signInWithPassword({ email, password });
+      if (error) {
+        setError('Incorrect email or password.');
+        return;
       }
+      router.replace('/admin');
+      router.refresh();
     } catch {
       setError('Something went wrong. Please try again.');
     } finally {
@@ -44,7 +44,29 @@ export default function AdminLoginPage() {
           <p className="mt-1 text-sm text-muted">Masjid Aisyah Lawata</p>
         </div>
 
+        {!isSupabaseConfigured && (
+          <div className="mt-5 rounded-lg border border-amber-300 bg-amber-50 p-3 text-xs text-amber-800">
+            Supabase is not configured yet. Add your keys to <code>.env.local</code> and
+            run <code>supabase/schema.sql</code> — see <code>supabase/README.md</code>.
+          </div>
+        )}
+
         <form onSubmit={onSubmit} className="mt-6 space-y-4">
+          <div>
+            <label htmlFor="email" className="block text-sm font-medium text-ink">
+              Email
+            </label>
+            <input
+              id="email"
+              type="email"
+              autoComplete="username"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              disabled={!isSupabaseConfigured}
+              className="mt-1 w-full rounded-lg border border-primary/20 px-3 py-2 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-accent/40 disabled:bg-surface"
+            />
+          </div>
           <div>
             <label htmlFor="password" className="block text-sm font-medium text-ink">
               Password
@@ -56,7 +78,8 @@ export default function AdminLoginPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="mt-1 w-full rounded-lg border border-primary/20 px-3 py-2 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-accent/40"
+              disabled={!isSupabaseConfigured}
+              className="mt-1 w-full rounded-lg border border-primary/20 px-3 py-2 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-accent/40 disabled:bg-surface"
             />
           </div>
 
@@ -64,7 +87,7 @@ export default function AdminLoginPage() {
 
           <button
             type="submit"
-            disabled={loading}
+            disabled={loading || !isSupabaseConfigured}
             className="w-full rounded-full bg-primary px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-primary-dark disabled:opacity-60"
           >
             {loading ? 'Signing in…' : 'Sign in'}
@@ -72,9 +95,7 @@ export default function AdminLoginPage() {
         </form>
 
         <p className="mt-6 text-center text-xs text-muted">
-          <a href="/id" className="hover:text-primary">
-            ← Back to site
-          </a>
+          <a href="/id" className="hover:text-primary">← Back to site</a>
         </p>
       </div>
     </div>

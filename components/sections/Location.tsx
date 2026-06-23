@@ -1,20 +1,23 @@
-import { useLocale, useTranslations } from 'next-intl';
+import { getTranslations, getLocale } from 'next-intl/server';
 import { MapPin, Navigation } from 'lucide-react';
 import { Section } from '@/components/ui/Section';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { ButtonLink } from '@/components/ui/Button';
 import { siteConfig } from '@/config/site';
+import { getContact } from '@/lib/content';
 
-export function Location() {
-  const t = useTranslations('location');
-  const locale = useLocale() as 'en' | 'id';
+export const dynamic = 'force-dynamic';
+
+export async function Location() {
+  const t = await getTranslations('location');
+  const locale = (await getLocale()) as 'en' | 'id';
+  const contact = await getContact();
 
   const { lat, lng } = siteConfig.coordinates;
   const query = encodeURIComponent(siteConfig.mapsQuery);
 
   // Keyless Google Maps embed centered on the mosque coordinates.
   const embedSrc = `https://maps.google.com/maps?q=${lat},${lng}&z=16&output=embed`;
-  // Directions deep link using the place query.
   const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${query}`;
 
   return (
@@ -26,7 +29,7 @@ export function Location() {
           <iframe
             src={embedSrc}
             title={t('mapTitle')}
-            className="h-[360px] w-full lg:h-full"
+            className="h-[300px] w-full sm:h-[360px] lg:h-full"
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
             allowFullScreen
@@ -39,7 +42,7 @@ export function Location() {
             {t('addressTitle')}
           </h3>
           <p className="mt-3 max-w-md leading-relaxed text-ink/80">
-            {siteConfig.address[locale]}
+            {contact.address[locale]}
           </p>
           <div className="mt-6">
             <ButtonLink href={directionsUrl} target="_blank" rel="noopener noreferrer">

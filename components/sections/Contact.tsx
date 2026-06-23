@@ -1,39 +1,38 @@
-import { useTranslations } from 'next-intl';
-import { Instagram, Mail, MessageCircle, Phone, Youtube } from 'lucide-react';
+import { getTranslations } from 'next-intl/server';
+import { Mail, MessageCircle, Phone } from 'lucide-react';
 import { Section } from '@/components/ui/Section';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { Card } from '@/components/ui/Card';
-import { siteConfig } from '@/config/site';
+import { SocialIcon } from '@/components/ui/SocialIcon';
+import { getContact, getSocials } from '@/lib/content';
 
-export function Contact() {
-  const t = useTranslations('contact');
-  const { contact, socials } = siteConfig;
+export const dynamic = 'force-dynamic';
+
+export async function Contact() {
+  const t = await getTranslations('contact');
+  const contact = await getContact();
+  const socials = await getSocials();
 
   const channels = [
-    {
+    contact.whatsapp && {
       icon: MessageCircle,
       label: t('whatsapp'),
-      value: contact.phoneDisplay,
+      value: contact.phone,
       href: `https://wa.me/${contact.whatsapp}`,
     },
-    {
+    contact.phone && {
       icon: Phone,
       label: t('phone'),
-      value: contact.phoneDisplay,
-      href: `tel:${contact.phoneDisplay.replace(/\s/g, '')}`,
+      value: contact.phone,
+      href: `tel:${contact.phone.replace(/\s/g, '')}`,
     },
-    {
+    contact.email && {
       icon: Mail,
       label: t('email'),
       value: contact.email,
       href: `mailto:${contact.email}`,
     },
-  ];
-
-  const socialLinks = [
-    { icon: Instagram, href: socials.instagram },
-    { icon: Youtube, href: socials.youtube },
-  ].filter((s) => s.href);
+  ].filter(Boolean) as { icon: typeof Mail; label: string; value: string; href: string }[];
 
   return (
     <Section id="contact" muted>
@@ -58,19 +57,20 @@ export function Contact() {
         ))}
       </div>
 
-      {socialLinks.length > 0 && (
+      {socials.length > 0 && (
         <div className="mt-10 text-center">
           <p className="text-sm text-muted">{t('follow')}</p>
           <div className="mt-3 flex justify-center gap-3">
-            {socialLinks.map((s, i) => (
+            {socials.map((s, i) => (
               <a
                 key={i}
-                href={s.href}
+                href={s.url}
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label={s.platform}
                 className="grid h-11 w-11 place-items-center rounded-full border border-primary/20 text-primary transition-colors hover:bg-primary hover:text-white"
               >
-                <s.icon className="h-5 w-5" />
+                <SocialIcon platform={s.platform} className="h-5 w-5" />
               </a>
             ))}
           </div>

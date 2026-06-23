@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Admin uses the same theme tokens as the public site. */
 :root {
   --color-background: 247 245 240;
   --color-surface: 241 238 231;
