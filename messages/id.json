@@ -1,0 +1,171 @@
+{
+  "meta": {
+    "title": "Masjid Aisyah Lawata — Islamic Center Al-Hunafa, Mataram",
+    "description": "Masjid Aisyah Islamic Center Al-Hunafa Lawata di Mataram — jadwal shalat langsung, kajian rutin, kelas Al-Qur'an, dan tempat ibadah yang tenang di bawah Yayasan Al-Hunafa."
+  },
+  "nav": {
+    "about": "Tentang",
+    "prayerTimes": "Jadwal Shalat",
+    "activities": "Kegiatan",
+    "schedule": "Jadwal Kajian",
+    "facilities": "Fasilitas",
+    "gallery": "Galeri",
+    "donation": "Donasi",
+    "location": "Lokasi",
+    "contact": "Kontak",
+    "openMenu": "Buka menu",
+    "closeMenu": "Tutup menu"
+  },
+  "language": {
+    "label": "Bahasa",
+    "en": "EN",
+    "id": "ID",
+    "switchToEn": "Ganti ke Bahasa Inggris",
+    "switchToId": "Ganti ke Bahasa Indonesia"
+  },
+  "hero": {
+    "tagline": "Mengamalkan Al-Qur'an dan Sunnah sesuai dengan pemahaman para Sahabat Rasulullah.",
+    "ctaPrayer": "Jadwal Shalat",
+    "ctaDonate": "Donasi",
+    "since": "Sejak 2001"
+  },
+  "prayer": {
+    "title": "Jadwal Shalat Hari Ini",
+    "subtitle": "Dihitung untuk Mataram (WITA) menggunakan metode Kementerian Agama RI (KEMENAG).",
+    "nextPrayer": "Shalat berikutnya",
+    "in": "dalam",
+    "now": "Sekarang",
+    "loading": "Memuat jadwal shalat…",
+    "error": "Tidak dapat memuat jadwal shalat saat ini.",
+    "retry": "Coba lagi",
+    "hijri": "Hijriah",
+    "jumuahNote": "Khutbah Jum'at dimulai sekitar pukul 12.00 WITA.",
+    "names": {
+      "Imsak": "Imsak",
+      "Fajr": "Subuh",
+      "Sunrise": "Syuruq",
+      "Dhuhr": "Dzuhur",
+      "Jumuah": "Jum'at",
+      "Asr": "Ashar",
+      "Maghrib": "Maghrib",
+      "Isha": "Isya"
+    }
+  },
+  "about": {
+    "title": "Tentang Masjid",
+    "history": "Dibangun pada tahun 2001, Masjid Aisyah Lawata mengadaptasi arsitektur Andalusia, dengan interior yang terinspirasi dari masjid-masjid besar Timur Tengah. Masjid ini dirintis oleh tiga tokoh masyarakat — Abdurrahman Hijam, Kholid Bawazir, dan Umar — dan berada di bawah naungan Yayasan Al-Hunafa, yayasan yang fokus pada dua pilar: dakwah dan pendidikan.",
+    "design": "Masjid ini memiliki dua lantai: lantai dasar untuk jamaah laki-laki dan lantai atas untuk jamaah perempuan, dengan tangga terpisah agar keduanya tidak berpapasan. Masjid bersebelahan dengan SMA Plus Abu Hurairah, sekolah milik yayasan.",
+    "visionTitle": "Visi",
+    "vision": "Mengamalkan Al-Qur'an dan Sunnah sesuai dengan pemahaman para Sahabat Rasulullah (Salafus Shalih).",
+    "missionTitle": "Misi",
+    "mission": "Menebarkan dakwah seluas-luasnya.",
+    "stats": {
+      "established": "Berdiri",
+      "establishedValue": "2001",
+      "floors": "Lantai",
+      "floorsValue": "2 (ikhwan & akhwat)",
+      "foundation": "Yayasan",
+      "foundationValue": "Yayasan Al-Hunafa"
+    }
+  },
+  "activities": {
+    "title": "Kegiatan & Program",
+    "subtitle": "Masjid yang hidup dengan budaya kajian yang kuat.",
+    "items": {
+      "kajianRutin": {
+        "title": "Kajian Rutin",
+        "desc": "Kajian rutin diadakan hampir setiap malam ba'da Maghrib, terbuka untuk umum."
+      },
+      "kajianKitab": {
+        "title": "Kajian Kitab",
+        "desc": "Kajian kitab klasik bersama para ustadz, termasuk alumni LIPIA dan Universitas Islam Madinah, serta ustadz tamu dari luar negeri."
+      },
+      "quran": {
+        "title": "Kelas Al-Qur'an — Tahsin & Tahfizh",
+        "desc": "Kelas perbaikan bacaan dan hafalan Al-Qur'an untuk semua tingkatan."
+      },
+      "jumat": {
+        "title": "Shalat Jum'at",
+        "desc": "Sholat Jum'at memenuhi masjid setiap pekan."
+      },
+      "tabligh": {
+        "title": "Tabligh Akbar",
+        "desc": "Tabligh akbar menghadirkan ustadz tingkat nasional."
+      },
+      "ramadhan": {
+        "title": "Program Ramadhan",
+        "desc": "Tarawih, qiyamul lail, tadarus, dan i'tikaf — masjid semakin penuh."
+      }
+    }
+  },
+  "schedule": {
+    "title": "Jadwal Kajian Mingguan",
+    "subtitle": "Kajian rutin sepanjang pekan.",
+    "placeholderNotice": "Entri ini masih bersifat sementara. Admin masjid akan mengonfirmasi jadwal yang sebenarnya.",
+    "headers": {
+      "day": "Hari",
+      "time": "Waktu",
+      "topic": "Tema / Kitab",
+      "ustadz": "Pemateri",
+      "audience": "Peserta"
+    },
+    "audience": {
+      "ikhwan": "Ikhwan",
+      "akhwat": "Akhwat",
+      "umum": "Umum"
+    }
+  },
+  "facilities": {
+    "title": "Fasilitas",
+    "subtitle": "Bersih, sejuk, dan nyaman untuk beribadah.",
+    "items": {
+      "ac": "Ber-AC (7 unit AC + 12 kipas)",
+      "women": "Ruang shalat akhwat (~300 m²)",
+      "wudhu": "Tempat wudhu & toilet yang memadai",
+      "quran": "±1.154 mushaf Al-Qur'an & 20 set mukenah",
+      "parking": "Parkir mobil & keamanan 24 jam",
+      "sound": "Sound system & interior beraroma oud",
+      "classrooms": "3 ruang kelas + ruang guru",
+      "carpet": "Karpet tebal di seluruh ruangan"
+    }
+  },
+  "gallery": {
+    "title": "Galeri",
+    "subtitle": "Sekilas suasana masjid.",
+    "placeholderNotice": "Gambar sementara — akan diganti dengan foto asli."
+  },
+  "donation": {
+    "title": "Dukung Masjid",
+    "subtitle": "Infaq dan sedekah Anda membantu kelangsungan ibadah, kajian, dan pendidikan di masjid.",
+    "qrisTitle": "Scan QRIS",
+    "qrisDesc": "Pindai dengan aplikasi mobile banking atau dompet digital apa pun.",
+    "qrisDownload": "Simpan QRIS",
+    "bankTitle": "Transfer Bank",
+    "bankName": "Bank",
+    "accountNumber": "Nomor rekening",
+    "accountHolder": "Atas nama",
+    "copy": "Salin",
+    "copied": "Tersalin!",
+    "placeholderNotice": "Detail donasi ini masih sementara. Ganti dengan rekening dan QRIS asli masjid sebelum diluncurkan."
+  },
+  "location": {
+    "title": "Lokasi",
+    "subtitle": "Kunjungi kami di masjid.",
+    "addressTitle": "Alamat",
+    "directions": "Petunjuk Arah",
+    "mapTitle": "Peta lokasi masjid"
+  },
+  "contact": {
+    "title": "Kontak",
+    "subtitle": "Hubungi pengurus masjid.",
+    "whatsapp": "WhatsApp",
+    "email": "Email",
+    "phone": "Telepon",
+    "follow": "Ikuti kami"
+  },
+  "footer": {
+    "rights": "Hak cipta dilindungi.",
+    "under": "Dikelola di bawah",
+    "quickLinks": "Tautan Cepat"
+  }
+}

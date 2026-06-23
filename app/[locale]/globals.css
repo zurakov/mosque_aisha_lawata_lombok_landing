@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Theme tokens (RGB triplets so Tailwind can apply opacity) ──────────────
+   Retheme the whole site by editing these values. Mirrors tailwind.config.ts. */
+:root {
+  --color-background: 247 245 240; /* #F7F5F0 cream */
+  --color-surface: 241 238 231; /* slightly deeper cream */
+  --color-primary: 11 59 54; /* #0B3B36 deep teal */
+  --color-primary-dark: 7 41 38;
+  --color-primary-light: 23 84 78;
+  --color-accent: 201 162 75; /* #C9A24B warm gold */
+  --color-accent-dark: 163 128 51;
+  --color-ink: 28 36 35; /* near-black text */
+  --color-muted: 107 114 112; /* secondary text */
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: rgb(var(--color-background));
+    color: rgb(var(--color-ink));
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Subtle Islamic geometric texture for section dividers / hero (Andalusian nod). */
+  .pattern-bg {
+    background-image: radial-gradient(
+      rgb(var(--color-primary) / 0.06) 1px,
+      transparent 1px
+    );
+    background-size: 22px 22px;
+  }
+}
+
+/* Respect reduced-motion preferences. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

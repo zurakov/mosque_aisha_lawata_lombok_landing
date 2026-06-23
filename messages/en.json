@@ -1,0 +1,171 @@
+{
+  "meta": {
+    "title": "Aisyah Lawata Mosque — Islamic Center Al-Hunafa, Mataram",
+    "description": "Aisyah Islamic Center Al-Hunafa Lawata Mosque in Mataram — live prayer times, regular study circles, Quran classes, and a calm place of worship under Yayasan Al-Hunafa."
+  },
+  "nav": {
+    "about": "About",
+    "prayerTimes": "Prayer Times",
+    "activities": "Activities",
+    "schedule": "Schedule",
+    "facilities": "Facilities",
+    "gallery": "Gallery",
+    "donation": "Donate",
+    "location": "Location",
+    "contact": "Contact",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
+  },
+  "language": {
+    "label": "Language",
+    "en": "EN",
+    "id": "ID",
+    "switchToEn": "Switch to English",
+    "switchToId": "Switch to Indonesian"
+  },
+  "hero": {
+    "tagline": "Practising the Qur'an and Sunnah according to the understanding of the Companions of the Prophet.",
+    "ctaPrayer": "Prayer Times",
+    "ctaDonate": "Donate",
+    "since": "Since 2001"
+  },
+  "prayer": {
+    "title": "Today's Prayer Times",
+    "subtitle": "Calculated for Mataram (WITA) using the Indonesian Ministry of Religious Affairs (KEMENAG) method.",
+    "nextPrayer": "Next prayer",
+    "in": "in",
+    "now": "Now",
+    "loading": "Loading prayer times…",
+    "error": "Unable to load prayer times right now.",
+    "retry": "Retry",
+    "hijri": "Hijri",
+    "jumuahNote": "Friday Khutbah begins around 12:00 WITA.",
+    "names": {
+      "Imsak": "Imsak",
+      "Fajr": "Fajr",
+      "Sunrise": "Sunrise",
+      "Dhuhr": "Dhuhr",
+      "Jumuah": "Jumu'ah",
+      "Asr": "Asr",
+      "Maghrib": "Maghrib",
+      "Isha": "Isha"
+    }
+  },
+  "about": {
+    "title": "About the Mosque",
+    "history": "Built in 2001, Aisyah Lawata Mosque adapts Andalusian architecture, with an interior inspired by the great mosques of the Middle East. It was pioneered by three community figures — Abdurrahman Hijam, Kholid Bawazir, and Umar — and operates under Yayasan Al-Hunafa, a foundation devoted to two pillars: dakwah (Islamic outreach) and education.",
+    "design": "The mosque has two floors: the ground floor for male congregants and the upper floor for female congregants, with separate staircases so the two never cross paths. It sits beside SMA Plus Abu Hurairah, the foundation's school.",
+    "visionTitle": "Vision",
+    "vision": "Practising the Qur'an and Sunnah according to the understanding of the Companions of the Prophet (the righteous predecessors).",
+    "missionTitle": "Mission",
+    "mission": "Spreading Islamic outreach (dakwah) as widely as possible.",
+    "stats": {
+      "established": "Established",
+      "establishedValue": "2001",
+      "floors": "Floors",
+      "floorsValue": "2 (men & women)",
+      "foundation": "Foundation",
+      "foundationValue": "Yayasan Al-Hunafa"
+    }
+  },
+  "activities": {
+    "title": "Activities & Programs",
+    "subtitle": "A living mosque with a strong study-circle culture.",
+    "items": {
+      "kajianRutin": {
+        "title": "Regular Study Circles",
+        "desc": "Kajian rutin held most evenings after Maghrib, open to the public."
+      },
+      "kajianKitab": {
+        "title": "Book Studies (Kajian Kitab)",
+        "desc": "Classical-text studies led by ustadz, including graduates of LIPIA and the Islamic University of Madinah, plus visiting foreign scholars."
+      },
+      "quran": {
+        "title": "Quran Classes — Tahsin & Tahfizh",
+        "desc": "Recitation refinement and memorization classes for all levels."
+      },
+      "jumat": {
+        "title": "Friday Prayer",
+        "desc": "Sholat Jum'at draws a full congregation each week."
+      },
+      "tabligh": {
+        "title": "Tabligh Akbar",
+        "desc": "Larger lectures featuring national-level scholars."
+      },
+      "ramadhan": {
+        "title": "Ramadan Programs",
+        "desc": "Tarawih, qiyamul lail, tadarus, and i'tikaf — the mosque is especially full."
+      }
+    }
+  },
+  "schedule": {
+    "title": "Weekly Study Schedule",
+    "subtitle": "Regular kajian throughout the week.",
+    "placeholderNotice": "These entries are placeholders. The mosque admin will confirm the exact schedule.",
+    "headers": {
+      "day": "Day",
+      "time": "Time",
+      "topic": "Topic / Book",
+      "ustadz": "Teacher",
+      "audience": "Audience"
+    },
+    "audience": {
+      "ikhwan": "Men",
+      "akhwat": "Women",
+      "umum": "General"
+    }
+  },
+  "facilities": {
+    "title": "Facilities",
+    "subtitle": "Clean, cool, and comfortable for worship.",
+    "items": {
+      "ac": "Air-conditioned (7 AC units + 12 fans)",
+      "women": "Women's prayer area (~300 m²)",
+      "wudhu": "Ample wudhu facilities & toilets",
+      "quran": "~1,154 Qur'an copies & 20 mukenah sets",
+      "parking": "Car parking & on-site security",
+      "sound": "Sound system & oud-fragranced interior",
+      "classrooms": "3 classrooms + teacher room",
+      "carpet": "Thick carpeting throughout"
+    }
+  },
+  "gallery": {
+    "title": "Gallery",
+    "subtitle": "A glimpse of the mosque.",
+    "placeholderNotice": "Placeholder images — to be replaced with real photos."
+  },
+  "donation": {
+    "title": "Support the Mosque",
+    "subtitle": "Your infaq and sedekah help sustain worship, study circles, and education at the mosque.",
+    "qrisTitle": "Scan QRIS",
+    "qrisDesc": "Scan with any Indonesian banking or e-wallet app.",
+    "qrisDownload": "Save QRIS",
+    "bankTitle": "Bank Transfer",
+    "bankName": "Bank",
+    "accountNumber": "Account number",
+    "accountHolder": "Account holder",
+    "copy": "Copy",
+    "copied": "Copied!",
+    "placeholderNotice": "These donation details are placeholders. Replace them with the mosque's real account and QRIS before launch."
+  },
+  "location": {
+    "title": "Location",
+    "subtitle": "Visit us at the mosque.",
+    "addressTitle": "Address",
+    "directions": "Get Directions",
+    "mapTitle": "Map showing the mosque location"
+  },
+  "contact": {
+    "title": "Contact",
+    "subtitle": "Get in touch with the mosque.",
+    "whatsapp": "WhatsApp",
+    "email": "Email",
+    "phone": "Phone",
+    "follow": "Follow us"
+  },
+  "footer": {
+    "rights": "All rights reserved.",
+    "under": "Operated under",
+    "quickLinks": "Quick Links"
+  }
+}
