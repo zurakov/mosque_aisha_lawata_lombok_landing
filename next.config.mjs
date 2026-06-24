@@ -10,6 +10,11 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'images.unsplash.com',
       },
+      {
+        // Supabase Storage public URLs for admin-uploaded hero/gallery images.
+        protocol: 'https',
+        hostname: '*.supabase.co',
+      },
     ],
   },
 };

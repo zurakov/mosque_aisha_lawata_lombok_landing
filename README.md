@@ -177,15 +177,18 @@ middleware.ts        locale routing + Supabase admin auth gate
 
 ## Deployment
 
+This is a **server-rendered** Next.js app (API routes, Supabase admin, auth
+middleware, live prayer-times). It needs a Node/serverless host — **it cannot run
+on GitHub Pages** or any static-only host.
+
 Set the four Supabase env vars (see the table above) in your host. The
 prayer-times API is keyless. Supabase is a managed Postgres + Storage + Auth
 service, so there's no database to provision on the host itself.
 
-### Vercel / Netlify (recommended)
-Push to a Git repo and import. Add the env vars in the project settings, run
-`supabase/schema.sql` once in the Supabase SQL editor, and create the admin
-user. Build command `npm run build`. Nothing else is required — the app is a
-standard Next.js app with no local database.
+### Vercel (recommended)
+Step-by-step guide: [`DEPLOY.md`](./DEPLOY.md). In short: import the repo at
+[vercel.com/new](https://vercel.com/new), add the four env vars, and deploy —
+every push to `main` redeploys. (Netlify works the same way.)
 
 ### Self-hosted (Docker / Coolify)
 A minimal Dockerfile:
