@@ -4,7 +4,6 @@ import {
   BookMarked,
   Car,
   Droplets,
-  GraduationCap,
   Layers,
   Shirt,
   Speaker,
@@ -21,7 +20,6 @@ const ITEMS = [
   { key: 'quran', icon: BookMarked },
   { key: 'mukenah', icon: Shirt },
   { key: 'wudhu', icon: Droplets },
-  { key: 'classrooms', icon: GraduationCap },
   { key: 'parking', icon: Car },
   { key: 'carpet', icon: Layers },
 ] as const;
@@ -33,7 +31,7 @@ export function Facilities() {
     <Section id="facilities" muted>
       <SectionHeading title={t('title')} subtitle={t('subtitle')} />
 
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {ITEMS.map((item) => (
           <div
             key={item.key}
